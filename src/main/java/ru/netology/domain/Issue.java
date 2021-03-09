@@ -10,7 +10,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 
-public class Issue implements Comparator<Issue> {
+public class Issue {
     private int id;
     private String author;
     private int date;
@@ -20,17 +20,6 @@ public class Issue implements Comparator<Issue> {
     private String projects;
     private String milestones;
     private Set<String> participants;
-
-    public Issue(Comparator<Issue> first) {
-
-    }
-
-
-    @Override
-    public int compare(Issue i1, Issue i2) {
-        return i1.getDate()-i2.getDate();
-    }
-
 
 
 }

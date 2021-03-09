@@ -12,10 +12,6 @@ import java.util.function.Predicate;
 public class IssueManager {
     private IssueRepository repository;
 
-    public IssueManager(IssueRepository repository) {
-
-    }
-
 
     public void add (Issue issue){
         repository.add(issue);
