@@ -12,6 +12,10 @@ import java.util.function.Predicate;
 public class IssueManager {
     private IssueRepository repository;
 
+    public IssueManager(IssueRepository repository) {
+        this.repository = repository;
+    }
+
 
     public void add (Issue issue){
         repository.add(issue);
@@ -78,7 +82,7 @@ public class IssueManager {
 
     public void openIssue(int id) {
         Issue item = repository.getById(id);
-        if (item.isOpen()) {
+        if (!item.isOpen()) {
             return;
         } else {
             item.setOpen(true);
@@ -89,12 +93,13 @@ public class IssueManager {
     public void closeIssue(int id) {
         Issue item = repository.getById(id);
         if (!item.isOpen()) {
-            return;
         } else {
             item.setOpen(false);
         }
     }
 
+
     public void addAll(List<Issue> issues) {
     }
+
 }
