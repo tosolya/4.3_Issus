@@ -17,33 +17,38 @@ public class IssueManager {
     }
 
 
-    public void add (Issue issue){
+    public void add(Issue issue) {
+        repository.add(issue);
+    }
+    public void addAll(Issue issue) {
         repository.add(issue);
     }
 
-    public List<Issue> getAll(){
+
+    public List<Issue> getAll() {
         return repository.getAll();
     }
 
-    public List<Issue> openedIssue(){
-        List<Issue> result =new ArrayList<>();
-        for (Issue item : repository.getAll()){
-            if (item.isOpen()){
+    public List<Issue> openedIssue() {
+        List<Issue> result = new ArrayList<>();
+        for (Issue item : repository.getAll()) {
+            if (item.isOpen()) {
                 result.add(item);
             }
         }
         return result;
     }
 
-    public List<Issue> closedIssue(){
+    public List<Issue> closedIssue() {
         List<Issue> result = new ArrayList<>();
-        for (Issue item : repository.getAll()){
-            if (!item.isOpen()){
+        for (Issue item : repository.getAll()) {
+            if (!item.isOpen()) {
                 result.add(item);
             }
         }
         return result;
     }
+
     public List<Issue> filterBy(Predicate<Issue> filter) {
         List<Issue> result = new ArrayList<>();
         for (Issue item : repository.getAll()) {
@@ -73,6 +78,7 @@ public class IssueManager {
         List<Issue> result = filterBy(filter);
         return result;
     }
+
     public List<Issue> sortBy(Comparator<Issue> comparator) {
         List<Issue> result = repository.getAll();
         result.sort(comparator);
@@ -83,8 +89,6 @@ public class IssueManager {
     public void openIssue(int id) {
         Issue item = repository.getById(id);
         if (!item.isOpen()) {
-            return;
-        } else {
             item.setOpen(true);
         }
     }
@@ -93,13 +97,11 @@ public class IssueManager {
     public void closeIssue(int id) {
         Issue item = repository.getById(id);
         if (!item.isOpen()) {
-        } else {
-            item.setOpen(false);
+                item.setOpen(false);
+            }
         }
-    }
 
 
-    public void addAll(List<Issue> issues) {
-    }
+
 
 }

@@ -24,14 +24,6 @@ class IssueManagerTest {
     Issue fifth = new Issue(5, "Don", 23032020, false, Set.of("User1"), Set.of("Question", "Invalid"), "Test", null, null);
     Issue sixth = new Issue(6, "Jon", 30042020, true, Set.of("User1"), Set.of("Bug", "Blocked"), "Test", null, null);
 
-    void setUp() {
-        manager.add(first);
-        manager.add(second);
-        manager.add(third);
-        manager.add(fourth);
-        manager.add(fifth);
-        manager.add(sixth);
-    }
 
     @Nested
     public class Empty {
@@ -137,6 +129,7 @@ class IssueManagerTest {
 
             @Test
             void shouldOpenById() {
+                manager.add(fifth);
                 manager.openIssue(5);
                 List<Issue> expected = List.of(fifth);
                 List<Issue> actual = manager.openedIssue();
@@ -145,18 +138,13 @@ class IssueManagerTest {
 
             @Test
             void shouldCloseById() {
+                manager.add(third);
                 manager.closeIssue(3);
                 List<Issue> expected = List.of(third);
                 List<Issue> actual = manager.closedIssue();
                 assertEquals(expected, actual);
             }
 
-
-            @Test
-            void shouldAddMultipleIssue() {
-                manager.addAll(List.of(new Issue(), new Issue()));
-
-            }
 
             @Nested
             public class MultipleItem {
@@ -167,11 +155,11 @@ class IssueManagerTest {
                     manager.add(third);
                     manager.add(fourth);
                     manager.add(fifth);
+                    manager.add(sixth);
                 }
 
                 @Test
                 void shouldAddIssue() {
-                    manager.add(sixth);
                     List<Issue> expected = List.of(first, second, third, fourth, fifth, sixth);
                     List<Issue> actual = manager.getAll();
                     assertEquals(expected, actual);
@@ -179,7 +167,7 @@ class IssueManagerTest {
 
                 @Test
                 void shouldShowOpenedIssue() {
-                    List<Issue> expected = List.of(first, second, fourth);
+                    List<Issue> expected = List.of(first, second, fourth, sixth);
                     List<Issue> actual = manager.openedIssue();
                     assertEquals(expected, actual);
                 }
@@ -194,7 +182,7 @@ class IssueManagerTest {
                 @Test
                 void shouldFilterByAuthor() {
                     String filter = "Jon";
-                    List<Issue> expected = List.of(first, third, fourth);
+                    List<Issue> expected = List.of(first, third, fourth,sixth);
                     List<Issue> actual = manager.filterByAuthor(filter);
                     assertEquals(expected, actual);
                 }
